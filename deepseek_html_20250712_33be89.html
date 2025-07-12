@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MX NextGrow - Professional SMM Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f7f7f7;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --gray: #dfe6e9;
+            --dark-gray: #636e72;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        /* Login Page Styles */
+        #login-page {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .social-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(108, 92, 231, 0.1);
+            animation: float 15s infinite ease-in-out;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo span {
+            color: var(--dark);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .login-container h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .login-container p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .feature {
+            background: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .login-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        .login-btn:hover {
+            background: #5a4bd1;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+        }
+        
+        .login-btn i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        /* App Container */
+        #app {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        /* Header Styles */
+        .header {
+            height: var(--header-height);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .app-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-left: 15px;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            padding: 10px;
+        }
+        
+        .profile-dropdown {
+            position: absolute;
+            top: var(--header-height);
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            padding: 20px;
+            display: none;
+            z-index: 200;
+        }
+        
+        .profile-dropdown.show {
+            display: block;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .profile-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .profile-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .profile-info p {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+        
+        .profile-dropdown ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .profile-dropdown li {
+            padding: 10px 0;
+        }
+        
+        .profile-dropdown a {
+            display: flex;
+            align-items: center;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .profile-dropdown a:hover {
+            color: var(--primary);
+        }
+        
+        .profile-dropdown i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .logout-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 15px;
+            transition: var(--transition);
+        }
+        
+        .logout-btn:hover {
+            background: #c62828;
+        }
+        
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            margin-top: var(--header-height);
+            min-height: calc(100vh - var(--header-height));
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            height: calc(100vh - var(--header-height));
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            padding: 30px 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            overflow-y: auto;
+            z-index: 90;
+        }
+        
+        .nav-item {
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+            background: rgba(108, 92, 231, 0.1);
+        }
+        
+        .nav-item.active:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary);
+        }
+        
+        .nav-item:hover:not(.active) {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .nav-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+        }
+        
+        /* Content Styles */
+        .content {
+            flex: 1;
+            padding: 30px;
+            margin-left: var(--sidebar-width);
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .page-title i {
+            margin-right: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Dashboard Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a4bd1;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(108, 92, 231, 0.1);
+        }
+        
+        /* New Order Form */
+        .order-form {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid var(--gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+        
+        .submit-btn:hover {
+            background: #5a4bd1;
+            transform: translateY(-2px);
+        }
+        
+        /* Add Funds Page */
+        .payment-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .qr-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: var(--light);
+            border: 1px dashed var(--dark-gray);
+            border-radius: 10px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+        }
+        
+        .qr-placeholder i {
+            font-size: 3rem;
+        }
+        
+        .payment-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .back-btn {
+            background: var(--gray);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: #d1d1d1;
+        }
+        
+        /* Orders Page */
+        .orders-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .order-table th {
+            text-align: left;
+            padding: 15px;
+            background: var(--light);
+            font-weight: 600;
+        }
+        
+        .order-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .status {
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-new {
+            background: rgba(45, 204, 112, 0.1);
+            color: #00b894;
+        }
+        
+        .status-pending {
+            background: rgba(253, 203, 110, 0.1);
+            color: #e17055;
+        }
+        
+        .status-completed {
+            background: rgba(0, 184, 148, 0.1);
+            color: #00b894;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .sidebar .nav-text {
+                display: none;
+            }
+            
+            .sidebar .nav-item {
+                justify-content: center;
+                padding: 20px 0;
+            }
+            
+            .sidebar .nav-item i {
+                margin-right: 0;
+                font-size: 1.5rem;
+            }
+            
+            .content {
+                margin-left: 70px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 0 15px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .login-container h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Fix for login button */
+        .login-success {
+            background-color: #00b894;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page">
+        <div class="login-background" id="social-icons-container"></div>
+        <div class="login-container">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>MX</span> NextGrow
+            </div>
+            <h1>Boost Your Social Media Presence</h1>
+            <p>Professional SMM services to grow your followers, engagement, and influence across all social platforms. Get real results with our premium panel.</p>
+            
+            <div class="features">
+                <div class="feature">4+ Years Experience</div>
+                <div class="feature">Fast Delivery</div>
+                <div class="feature">High Quality</div>
+                <div class="feature">24/7 Support</div>
+            </div>
+            
+            <button class="login-btn" id="google-login">
+                <i class="fab fa-google"></i> Login with Google
+            </button>
+            
+            <div class="login-success" id="login-success">
+                <i class="fas fa-check-circle"></i> Login successful! Redirecting...
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main App -->
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="app-name">MX NextGrow</div>
+            </div>
+            <div class="header-right">
+                <button class="profile-toggle" id="profile-toggle">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="profile-header">
+                        <div class="profile-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="user-name">User Name</h3>
+                            <p id="user-email">user@example.com</p>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                    </ul>
+                    <button class="logout-btn" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar -->
+            <nav class="sidebar">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="new-order">
+                    <i class="fas fa-plus-circle"></i>
+                    <span class="nav-text">New Order</span>
+                </a>
+                <a href="#" class="nav-item" data-page="orders">
+                    <i class="fas fa-list"></i>
+                    <span class="nav-text">Orders</span>
+                </a>
+                <a href="#" class="nav-item" data-page="services">
+                    <i class="fas fa-cubes"></i>
+                    <span class="nav-text">Services</span>
+                </a>
+                <a href="#" class="nav-item" data-page="add-funds">
+                    <i class="fas fa-wallet"></i>
+                    <span class="nav-text">Add Funds</span>
+                </a>
+                <a href="#" class="nav-item" data-page="tickets">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span class="nav-text">Tickets</span>
+                </a>
+                <a href="#" class="nav-item" data-page="api">
+                    <i class="fas fa-code"></i>
+                    <span class="nav-text">API</span>
+                </a>
+                <a href="#" class="nav-item" data-page="affiliates">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Affiliates</span>
+                </a>
+                <a href="#" class="nav-item" data-page="child-panels">
+                    <i class="fas fa-sitemap"></i>
+                    <span class="nav-text">Child Panels</span>
+                </a>
+            </nav>
+            
+            <!-- Content Area -->
+            <main class="content">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="page-content">
+                    <h1 class="page-title"><i class="fas fa-home"></i> Dashboard</h1>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-header">Total Orders</div>
+                            <div class="card-body">
+                                <div class="stat-number">1,010,155,452</div>
+                                <div class="stat-label">4+ years experience providing SMM services</div>
+                                <button class="btn btn-outline">
+                                    <i class="fas fa-history"></i> View History
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">Available Balance</div>
+                            <div class="card-body">
+                                <div class="stat-number">₹ 13.381</div>
+                                <div class="stat-label">Your account balance</div>
+                                <button class="btn btn-primary" id="add-funds-btn">
+                                    <i class="fas fa-plus"></i> Add Funds
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">Account Status</div>
+                            <div class="card-body">
+                                <div class="stat-number status status-new">NEW</div>
+                                <div class="stat-label">Your total spending: ₹ 2941.619</div>
+                                <button class="btn btn-outline">
+                                    <i class="fas fa-chart-line"></i> View Statistics
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Order Page -->
+                <div id="new-order-page" class="page-content" style="display: none;">
+                    <h1 class="page-title"><i class="fas fa-plus-circle"></i> New Order</h1>
+                    
+                    <div class="order-form">
+                        <div class="form-group">
+                            <label for="search-service">Search for a service...</label>
+                            <input type="text" id="search-service" class="form-control" placeholder="Enter service name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select class="form-control" id="category">
+                                <option>Facebook Page Likes + Followers (Fast)</option>
+                                <option>Instagram Followers (Real)</option>
+                                <option>YouTube Views (High Retention)</option>
+                                <option>Twitter Followers (Active)</option>
+                                <option>TikTok Followers (Fast Delivery)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Service</label>
+                            <select class="form-control" id="service">
+                                <option>4504 - Facebook Page Likes Followers</option>
+                                <option>1123 - Instagram Followers (Real Users)</option>
+                                <option>7892 - YouTube Views (HQ Retention)</option>
+                                <option>4561 - Twitter Followers (Active Accounts)</option>
+                                <option>3325 - TikTok Followers (Fast Delivery)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Description</label>
+                            <div class="form-control" style="background: #f9f9f9; height: auto; min-height: 80px;">
+                                <p><strong>Start:</strong> Instant</p>
+                                <p><strong>Speed:</strong> 100k-200K/Day</p>
+                                <p><strong>Drop:</strong> No</p>
+                                <p><strong>REFILL:</strong> No-Refill 🌤</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="link">Link</label>
+                                <input type="text" id="link" class="form-control" placeholder="Enter your profile/page link">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="quantity">Quantity</label>
+                                <input type="number" id="quantity" class="form-control" placeholder="Min: 10 - Max: 500000" min="10" max="500000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Charge</label>
+                            <div class="form-control" style="font-weight: 600; font-size: 1.2rem; background: #f9f9f9;">
+                                ₹ 0.00
+                            </div>
+                        </div>
+                        
+                        <button class="submit-btn">Place Order</button>
+                    </div>
+                </div>
+                
+                <!-- Add Funds Page -->
+                <div id="add-funds-page" class="page-content" style="display: none;">
+                    <h1 class="page-title"><i class="fas fa-wallet"></i> Add Funds</h1>
+                    
+                    <div class="payment-container">
+                        <div class="qr-container">
+                            <h3>Scan QR Code to Deposit Funds</h3>
+                            <div class="qr-placeholder">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <p>Scan the QR code using any UPI payment app to deposit funds</p>
+                        </div>
+                        
+                        <form class="payment-form">
+                            <div class="form-group">
+                                <label for="utr-number">UTR Number</label>
+                                <input type="text" id="utr-number" class="form-control" placeholder="Enter UTR number from your transaction">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="screenshot">Upload Screenshot</label>
+                                <input type="file" id="screenshot" class="form-control">
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">Submit Payment Details</button>
+                        </form>
+                        
+                        <button class="back-btn" id="back-to-dashboard">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Orders Page -->
+                <div id="orders-page" class="page-content" style="display: none;">
+                    <h1 class="page-title"><i class="fas fa-list"></i> Orders</h1>
+                    
+                    <div class="orders-container">
+                        <table class="order-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Service</th>
+                                    <th>Date</th>
+                                    <th>Quantity</th>
+                                    <th>Charge</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#ORD-78945</td>
+                                    <td>Facebook Page Likes</td>
+                                    <td>Jul 12, 2025</td>
+                                    <td>10,000</td>
+                                    <td>₹ 850.00</td>
+                                    <td><span class="status status-completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-78944</td>
+                                    <td>Instagram Followers</td>
+                                    <td>Jul 11, 2025</td>
+                                    <td>5,000</td>
+                                    <td>₹ 750.00</td>
+                                    <td><span class="status status-completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-78943</td>
+                                    <td>YouTube Views</td>
+                                    <td>Jul 10, 2025</td>
+                                    <td>50,000</td>
+                                    <td>₹ 1,200.00</td>
+                                    <td><span class="status status-completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-78942</td>
+                                    <td>Twitter Followers</td>
+                                    <td>Jul 9, 2025</td>
+                                    <td>2,000</td>
+                                    <td>₹ 450.00</td>
+                                    <td><span class="status status-completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-78941</td>
+                                    <td>TikTok Followers</td>
+                                    <td>Jul 8, 2025</td>
+                                    <td>1,000</td>
+                                    <td>₹ 350.00</td>
+                                    <td><span class="status status-completed">Completed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Create floating social media icons
+        function createFloatingIcons() {
+            const iconsContainer = document.getElementById('social-icons-container');
+            const icons = ['fab fa-facebook', 'fab fa-instagram', 'fab fa-youtube', 
+                           'fab fa-twitter', 'fab fa-tiktok', 'fab fa-linkedin',
+                           'fab fa-pinterest', 'fab fa-snapchat', 'fab fa-reddit',
+                           'fab fa-whatsapp', 'fab fa-telegram', 'fab fa-discord'];
+            
+            for (let i = 0; i < 30; i++) {
+                const icon = document.createElement('i');
+                icon.className = icons[Math.floor(Math.random() * icons.length)] + ' social-icon';
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                icon.style.left = `${posX}%`;
+                icon.style.top = `${posY}%`;
+                
+                // Random size
+                const size = 1 + Math.random() * 2;
+                icon.style.fontSize = `${size}rem`;
+                
+                // Random animation delay
+                const delay = Math.random() * 15;
+                icon.style.animationDelay = `${delay}s`;
+                
+                iconsContainer.appendChild(icon);
+            }
+        }
+        
+        // Google Login
+        document.getElementById('google-login').addEventListener('click', () => {
+            // Simulate login process with loading indicator
+            const loginBtn = document.getElementById('google-login');
+            const originalText = loginBtn.innerHTML;
+            
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            loginBtn.disabled = true;
+            
+            // Show success message after short delay
+            document.getElementById('login-success').style.display = 'block';
+            
+            setTimeout(() => {
+                // Create mock user data
+                const mockUser = {
+                    displayName: "SMM User",
+                    email: "user@nextgrow.com"
+                };
+                
+                // Show app with mock user data
+                showApp(mockUser);
+                
+                // Reset login button
+                loginBtn.innerHTML = originalText;
+                loginBtn.disabled = false;
+            }, 1500);
+        });
+        
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            document.getElementById('app').style.display = 'none';
+            document.getElementById('login-page').style.display = 'flex';
+            document.getElementById('login-success').style.display = 'none';
+        });
+        
+        // Show app after login
+        function showApp(user) {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            
+            // Set user info
+            document.getElementById('user-name').textContent = user.displayName || 'User';
+            document.getElementById('user-email').textContent = user.email;
+        }
+        
+        // Profile toggle
+        document.getElementById('profile-toggle').addEventListener('click', () => {
+            const dropdown = document.getElementById('profile-dropdown');
+            dropdown.classList.toggle('show');
+        });
+        
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all items
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Hide all pages
+                document.querySelectorAll('.page-content').forEach(page => {
+                    page.style.display = 'none';
+                });
+                
+                // Show selected page
+                const pageId = this.getAttribute('data-page') + '-page';
+                document.getElementById(pageId).style.display = 'block';
+            });
+        });
+        
+        // Add Funds button
+        document.getElementById('add-funds-btn').addEventListener('click', () => {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show add funds page
+            document.getElementById('add-funds-page').style.display = 'block';
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+                if (nav.getAttribute('data-page') === 'add-funds') {
+                    nav.classList.add('active');
+                }
+            });
+        });
+        
+        // Back to Dashboard
+        document.getElementById('back-to-dashboard').addEventListener('click', () => {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show dashboard page
+            document.getElementById('dashboard-page').style.display = 'block';
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+                if (nav.getAttribute('data-page') === 'dashboard') {
+                    nav.classList.add('active');
+                }
+            });
+        });
+        
+        // Close profile dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('profile-dropdown');
+            const toggleBtn = document.getElementById('profile-toggle');
+            
+            if (!toggleBtn.contains(e.target) {
+                dropdown.classList.remove('show');
+            }
+        });
+        
+        // Initialize the app
+        window.addEventListener('DOMContentLoaded', () => {
+            createFloatingIcons();
+            
+            // Close dropdown when clicking on a link inside
+            document.querySelectorAll('.profile-dropdown a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('profile-dropdown').classList.remove('show');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
